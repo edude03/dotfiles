@@ -1,0 +1,5 @@
+caiogondim/bullet-train-oh-my-zsh-theme
+caarlos0/zsh-mkc
+zsh-users/zsh-completions
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-history-substring-search
