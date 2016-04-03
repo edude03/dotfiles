@@ -1,4 +1,4 @@
-caiogondim/bullet-train-oh-my-zsh-theme
+bhilburn/powerlevel9k
 caarlos0/zsh-mkc
 zsh-users/zsh-completions
 zsh-users/zsh-syntax-highlighting
