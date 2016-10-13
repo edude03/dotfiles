@@ -1,12 +1,14 @@
 #zmodload zsh/zprof
-
 # Load Antibody (Plugin Manager)
 source ~/.zsh/antibody.zsh
 
 # Turn on Prompt Substitution
 setopt PROMPT_SUBST
 
-# Load specific oh-my-zsh bits I want / need
+# Tmux says the terminal doesn't support 256 colors?
+export TERM="xterm-256color" 
+
+#Load specific oh-my-zsh bits I want / need
 source ~/oh-my-zsh/lib/git.zsh
 source ~/oh-my-zsh/lib/theme-and-appearance.zsh
 source ~/oh-my-zsh/lib/completion.zsh
@@ -40,14 +42,28 @@ else
   compinit -i -d "${ZSH_COMPDUMP}"
 fi
 
-# RBENV
-export PATH="/usr/local/sbin:$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if [[ -a "${HOME}/.rbenv/bin" ]]; then
+  # Load RBENV
+  export PATH="/usr/local/sbin:$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
 
+# TODO: Fix hardcoded path
+# for nodenv & rbenv
+# Maybe source nix first then use the return of which
+if [[ -a "${HOME}/.nodenv/bin" ]]; then
+  # Load nodenv
+  path += ('$HOME/.nodenv/bin')
+  eval "$(nodenv init -)"
+fi
+
+#if [[ -a /home/edude03/.nix-profile/etc/profile.d/nix.sh ]]; then
+  
 
 export GOPATH="$HOME/golang"
-export GOROOT=/usr/local/opt/go/libexec
-
+# On OSX this is where it is, on linux it's not
+#export GOROOT=/usr/local/opt/go/libexec
+export GOROOT=/usr/local/go
 path=(
  $path
  $HOME/.nodenv/bin
@@ -55,10 +71,8 @@ path=(
  $GOROOT/bin
 )
 
-eval "$(nodenv init -)"
-
-
 # Get Antibody to load plugins
 antibody bundle < ~/.zsh/plugins.txt
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
