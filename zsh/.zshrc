@@ -1,12 +1,9 @@
-#zmodload zsh/zprof
+zmodload zsh/zprof
 # Load Antibody (Plugin Manager)
-source ~/.zsh/antibody.zsh
+source <(antibody init)
 
 # Turn on Prompt Substitution
 setopt PROMPT_SUBST
-
-# Tmux says the terminal doesn't support 256 colors?
-export TERM="xterm-256color" 
 
 #Load specific oh-my-zsh bits I want / need
 source ~/oh-my-zsh/lib/git.zsh
@@ -18,8 +15,8 @@ source ~/oh-my-zsh/lib/spectrum.zsh
 source ~/oh-my-zsh/lib/history.zsh
 
 # Load secrets
-if [ -e "~/secrets" ]; then
-  source ~/secrets
+if [[ -e "${HOME}/secrets" ]]; then
+  source ${HOME}/secrets
 fi
 
 # Stuff I hacked in from OMZ init
@@ -57,8 +54,9 @@ if [[ -a "${HOME}/.nodenv/bin" ]]; then
   eval "$(nodenv init -)"
 fi
 
-#if [[ -a /home/edude03/.nix-profile/etc/profile.d/nix.sh ]]; then
-  
+if [[ -a "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
+  source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+fi
 
 export GOPATH="$HOME/golang"
 # On OSX this is where it is, on linux it's not
@@ -67,6 +65,7 @@ export GOROOT=/usr/local/go
 path=(
  $path
  $HOME/.nodenv/bin
+ $HOME/.cargo/bin
  $GOPATH/bin
  $GOROOT/bin
 )
@@ -74,5 +73,10 @@ path=(
 # Get Antibody to load plugins
 antibody bundle < ~/.zsh/plugins.txt
 
+# Load fzf if installed
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
