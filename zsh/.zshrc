@@ -76,6 +76,9 @@ antibody bundle < ~/.zsh/plugins.txt
 # Load fzf if installed
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Autojump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
 
 #export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

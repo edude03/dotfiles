@@ -17,6 +17,9 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-fugitive'
 Plug 'nvie/vim-flake8'
 Plug 'tell-k/vim-autopep8'
+Plug 'derekwyatt/vim-scala'
+Plug 'Valloric/YouCompleteMe'
+Plug 'tpope/vim-endwise'
 call plug#end()
 
 " Enable Line Numbers
@@ -52,3 +55,6 @@ let g:syntastic_check_on_wq = 0
 
 " Map Nerdtree to \n
  map <Leader>n <plug>NERDTreeTabsToggle<CR>
+ 
+ imap <Tab> <C-P>
+
