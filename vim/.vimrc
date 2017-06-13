@@ -20,6 +20,11 @@ Plug 'tell-k/vim-autopep8'
 Plug 'derekwyatt/vim-scala'
 Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-endwise'
+Plug 'b4b4r07/vim-hcl'
+Plug 'rust-lang/rust.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " Enable Line Numbers
@@ -52,9 +57,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_highlighting=1
 
 " Map Nerdtree to \n
  map <Leader>n <plug>NERDTreeTabsToggle<CR>
  
  imap <Tab> <C-P>
+
 

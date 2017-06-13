@@ -68,6 +68,7 @@ path=(
  $HOME/.cargo/bin
  $GOPATH/bin
  $GOROOT/bin
+ $HOME/anaconda3/bin
 )
 
 # Get Antibody to load plugins
@@ -79,7 +80,8 @@ antibody bundle < ~/.zsh/plugins.txt
 # Autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
-
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
