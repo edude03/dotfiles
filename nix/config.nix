@@ -1,12 +1,20 @@
 {
-  packageOverrides = pkgs_: with pkgs_; {  # pkgs_ is the original set of packages
-    all = with pkgs; buildEnv {  # pkgs is your overriden set of packages itself
-      name = "all";
+  allowUnfree = true;
+  packageOverrides = defaultPkgs: with defaultPkgs; {
+     home = with pkgs; buildEnv {
+      # Make it easy to install with `nix-env -i home` [I believe]
+      # TODO(akavel): verify that below line is required [or advised] for
+      # `nix-env -i home`
+      name = "home";
+
       paths = [
-      	vim
-        stow
-        zsh
+        wget
+        tree
+        pstree    # print an ascii-art tree of running processes
+        nvim      # NeoVim + customized config (see below)
+        nix-repl  # REPL for learning Nix
       ];
     };
-  };
-}
+  }
+
+

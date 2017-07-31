@@ -1,4 +1,7 @@
 zmodload zsh/zprof
+export POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+export POWERLEVEL9K_SHORTEN_STRATEGY='truncate_from_right'
+
 # Load Antibody (Plugin Manager)
 source <(antibody init)
 
@@ -13,11 +16,6 @@ source ~/oh-my-zsh/lib/directories.zsh
 source ~/oh-my-zsh/lib/key-bindings.zsh
 source ~/oh-my-zsh/lib/spectrum.zsh
 source ~/oh-my-zsh/lib/history.zsh
-
-# Load secrets
-if [[ -e "${HOME}/secrets" ]]; then
-  source ${HOME}/secrets
-fi
 
 # Stuff I hacked in from OMZ init
 autoload -U compaudit compinit
@@ -38,6 +36,19 @@ if [[ $ZSH_DISABLE_COMPFIX != true ]]; then
 else
   compinit -i -d "${ZSH_COMPDUMP}"
 fi
+
+
+# Load secrets
+if [[ -a "${HOME}/secrets.sh" ]]; then
+  source ${HOME}/secrets.sh
+fi
+
+# Stuff I hacked in from OMZ init
+#autoload -U compaudit compinit
+# Save the location of the current completion dump file.
+#if [ -z "$ZSH_COMPDUMP" ]; then
+#  ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+#fi
 
 if [[ -a "${HOME}/.rbenv/bin" ]]; then
   # Load RBENV
@@ -60,8 +71,8 @@ fi
 
 export GOPATH="$HOME/golang"
 # On OSX this is where it is, on linux it's not
-#export GOROOT=/usr/local/opt/go/libexec
-export GOROOT=/usr/local/go
+export GOROOT=/usr/local/opt/go/libexec
+#export GOROOT=/usr/local/go
 path=(
  $path
  $HOME/.nodenv/bin
@@ -83,5 +94,5 @@ antibody bundle < ~/.zsh/plugins.txt
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

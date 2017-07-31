@@ -25,11 +25,14 @@ Plug 'rust-lang/rust.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'Yggdroot/indentLine'
 call plug#end()
 
 " Enable Line Numbers
 set number
 let g:airline_powerline_fonts = 1
+" Show the name of the buffers in the tabline
+let g:airline#extensions#tabline#enabled = 1
 
 " Use spaces instead of tab char
 set expandtab
