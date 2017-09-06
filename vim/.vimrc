@@ -1,12 +1,14 @@
 call plug#begin('~/.vim/plug')
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-sensible'
+"Plug 'tpope/vim-unimpaired'
 Plug 'bling/vim-airline'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'jeetsukumaran/vim-buffergator'
 Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-syntastic/syntastic'
@@ -26,6 +28,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'LnL7/vim-nix'
 call plug#end()
 
 " Enable Line Numbers
