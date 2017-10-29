@@ -1,20 +1,34 @@
 {
-  allowUnfree = true;
-  packageOverrides = defaultPkgs: with defaultPkgs; {
-     home = with pkgs; buildEnv {
-      # Make it easy to install with `nix-env -i home` [I believe]
-      # TODO(akavel): verify that below line is required [or advised] for
-      # `nix-env -i home`
-      name = "home";
+    allowBroken = true;
+    packageOverrides = pkgs_: with pkgs_; {
+      nix-home = import ./nix-home.nix {
+        inherit (pkgs) stdenv python fetchFromGitHub;
+      };
 
-      paths = [
-        wget
-        tree
-        pstree    # print an ascii-art tree of running processes
-        nvim      # NeoVim + customized config (see below)
-        nix-repl  # REPL for learning Nix
-      ];
+      nvimOverridden = pkgs.neovim.override {
+        withPython  = false;  # I think I don't need it for now; [NOTE: rebuilds]
+        withPython3 = true;  #
+        vimAlias = true;
+        withJemalloc = true;
+      };
+
+      all = with pkgs; buildEnv {
+        name = "all";
+        paths = [
+          git
+          zsh
+          tmux
+          wget
+          fzf
+          nvimOverridden
+          cmake
+          tree
+          gist
+          pstree
+          hugo
+          ammonite
+          httpie
+        ];
     };
-  }
-
-
+  };
+}

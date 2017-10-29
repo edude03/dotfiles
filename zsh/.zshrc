@@ -1,14 +1,17 @@
-zmodload zsh/zprof
+# zmodload zsh/zprof
 export POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 export POWERLEVEL9K_SHORTEN_STRATEGY='truncate_from_right'
 
+# Fixes moving on mac
+bindkey "\e\e[D" backward-word 
+bindkey "\e\e[C" forward-word
+
 # Load Antibody (Plugin Manager)
-source <(antibody init)
+if [[ -x "${HOME}/.zsh/plugins.sh" ]]; then
+  source "${HOME}/.zsh/plugins.sh"
+fi
 
-# Turn on Prompt Substitution
-setopt PROMPT_SUBST
-
-#Load specific oh-my-zsh bits I want / need
+# Load specific oh-my-zsh bits I want / need
 source ~/oh-my-zsh/lib/git.zsh
 source ~/oh-my-zsh/lib/theme-and-appearance.zsh
 source ~/oh-my-zsh/lib/completion.zsh
@@ -17,73 +20,40 @@ source ~/oh-my-zsh/lib/key-bindings.zsh
 source ~/oh-my-zsh/lib/spectrum.zsh
 source ~/oh-my-zsh/lib/history.zsh
 
-# Stuff I hacked in from OMZ init
-autoload -U compaudit compinit
-# Save the location of the current completion dump file.
-if [ -z "$ZSH_COMPDUMP" ]; then
-  ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-fi
 
-if [[ $ZSH_DISABLE_COMPFIX != true ]]; then
-  # If completion insecurities exist, warn the user without enabling completions.
-  if ! compaudit &>/dev/null; then
-    # This function resides in the "lib/compfix.zsh" script sourced above.
-    handle_completion_insecurities
-  # Else, enable and cache completions to the desired file.
-  else
-    compinit -d "${ZSH_COMPDUMP}"
-  fi
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-${HOME}}/$ZSH_COMPDUMP(#qN.mh+24) ]]; then
+	compinit -d $ZSH_COMPDUMP;
 else
-  compinit -i -d "${ZSH_COMPDUMP}"
-fi
+	compinit -C;
+fi;
 
+# Ensure nvim is used as editor
+export EDITOR=nvim
 
 # Load secrets
 if [[ -a "${HOME}/secrets.sh" ]]; then
   source ${HOME}/secrets.sh
 fi
 
-# Stuff I hacked in from OMZ init
-#autoload -U compaudit compinit
-# Save the location of the current completion dump file.
-#if [ -z "$ZSH_COMPDUMP" ]; then
-#  ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-#fi
+. /Users/edude03/.nix-profile/etc/profile.d/nix.sh
 
-if [[ -a "${HOME}/.rbenv/bin" ]]; then
-  # Load RBENV
-  export PATH="/usr/local/sbin:$HOME/.rbenv/bin:$PATH"
+if [[ $(command -v rbenv)  ]]; then
   eval "$(rbenv init -)"
 fi
 
-# TODO: Fix hardcoded path
-# for nodenv & rbenv
-# Maybe source nix first then use the return of which
-if [[ -a "${HOME}/.nodenv/bin" ]]; then
-  # Load nodenv
-  path += ('$HOME/.nodenv/bin')
-  eval "$(nodenv init -)"
-fi
-
-if [[ -a "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
-  source "${HOME}/.nix-profile/etc/profile.d/nix.sh"
-fi
-
 export GOPATH="$HOME/golang"
-# On OSX this is where it is, on linux it's not
 export GOROOT=/usr/local/opt/go/libexec
-#export GOROOT=/usr/local/go
-path=(
- $path
- $HOME/.nodenv/bin
- $HOME/.cargo/bin
- $GOPATH/bin
- $GOROOT/bin
- $HOME/anaconda3/bin
-)
+export NVM_DIR="$HOME/.nvm"
 
-# Get Antibody to load plugins
-antibody bundle < ~/.zsh/plugins.txt
+path+=(
+  /usr/local/bin
+  $HOME/.cargo/bin
+  $GOPATH/bin
+  $GOROOT/bin
+  $HOME/miniconda3/bin
+  $HOME/anaconda3/bin
+)
 
 # Load fzf if installed
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -91,8 +61,22 @@ antibody bundle < ~/.zsh/plugins.txt
 # Autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
+
+# NVM stuff 
+declare -a NODE_GLOBALS=(`find ~/.nvm/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
+
+NODE_GLOBALS+=("node")
+NODE_GLOBALS+=("nvm")
+
+load_nvm () {
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+}
+
+for cmd in "${NODE_GLOBALS[@]}"; do
+  eval "${cmd}(){ unset -f ${NODE_GLOBALS}; load_nvm; ${cmd} \$@ }"
+done
+
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
