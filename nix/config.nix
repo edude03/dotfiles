@@ -28,6 +28,7 @@
           hugo
           ammonite
           httpie
+          yarn
         ];
     };
   };

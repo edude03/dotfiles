@@ -36,8 +36,6 @@ if [[ -a "${HOME}/secrets.sh" ]]; then
   source ${HOME}/secrets.sh
 fi
 
-. /Users/edude03/.nix-profile/etc/profile.d/nix.sh
-
 if [[ $(command -v rbenv)  ]]; then
   eval "$(rbenv init -)"
 fi
@@ -56,7 +54,11 @@ path+=(
 )
 
 # Load fzf if installed
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ -n "${commands[fzf-share]}" ]; then
+  source "$(fzf-share)/key-bindings.zsh"
+fi
+
 
 # Autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
@@ -80,3 +82,24 @@ for cmd in "${NODE_GLOBALS[@]}"; do
 done
 
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+# add-zsh-hook chpwd load-nvmrc
+# load-nvmrc
