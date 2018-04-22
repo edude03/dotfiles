@@ -1,5 +1,4 @@
 {pkgs}:
-
 let 
   customPlugins.vim-quantum = pkgs.vimUtils.buildVimPlugin {
     name = "vim-quantum";
@@ -13,6 +12,7 @@ let
 
 in
 with pkgs; rec {
+    allowUnfree = true;
     allowBroken = true;
 
     packageOverrides = pkgs_: with pkgs_; {
