@@ -10,10 +10,30 @@ let
     };
   };
 
+ 
+  customPlugins.vim-better-whitespace = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-better-whitespace";
+    src = pkgs.fetchFromGitHub {
+      owner = "ntpeters";
+      repo = "vim-better-whitespace";
+      rev = "70a38fa9683e8cd0635264dd1b69c6ccbee4e3e7";
+      sha256 = "1w16mrvydbvj9msi8p4ym1vasjx6kr4yd8jdhndz0pr3qasn2ix9";
+    };
+  };
+
+  customPlugins.vim-oceanic-next = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-oceanic-next";
+    src = pkgs.fetchFromGitHub {
+      owner = "mhartington";
+      repo = "oceanic-next";
+      rev = "021c281ba959d4ba91bdf7dca4cae47a35789386";
+      sha256 = "1vvjll44596905m9yxp33ac9sx2nq8l3kli2wjxi82hdah3xc3sm";
+    };
+  };
+
 in
 with pkgs; rec {
     allowUnfree = true;
-    allowBroken = true;
 
     packageOverrides = pkgs_: with pkgs_; {
       nvimOverridden = pkgs.neovim.override {
@@ -41,10 +61,21 @@ with pkgs; rec {
 
             " Set color scheme
             set background=dark
-            let g:airline_theme='quantum'
-            let g:quantum_italics=1
+            " let g:airline_theme='quantum'
+            " let g:quantum_italics=1
             set termguicolors
-            colorscheme quantum
+            " colorscheme quantum
+
+            " Oceanic Next settings
+            syntax enable
+            colorscheme OceanicNext
+            let g:airline_theme='oceanicnext'
+
+            " Highlight the current line
+            set cursorline
+
+            " Enable indent guide on startup
+            let g:indent_guides_enable_on_vim_startup = 1
           '';
 
           vam.knownPlugins = vimPlugins // customPlugins;
@@ -54,15 +85,17 @@ with pkgs; rec {
                 "vim-indent-guides"
                 "nerdtree"
                 "fzf-vim"
-                "YouCompleteMe"
                 "fugitive"
                 "syntastic"
+                "vim-better-whitespace"
+                "vim-gitgutter"
 
                 # Syntax support
                 "vim-nix"
 
                 # Themes
                 "vim-quantum"
+                "vim-oceanic-next"
               ];
             }
           ];
@@ -84,6 +117,7 @@ with pkgs; rec {
           gist
           pstree
           hugo
+          git-crypt
 
           # Scala tools
           ammonite

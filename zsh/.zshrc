@@ -45,6 +45,7 @@ export GOROOT=/usr/local/opt/go/libexec
 export NVM_DIR="$HOME/.nvm"
 
 path+=(
+#  $HOME/.jenv/bin
   /usr/local/bin
   $HOME/.cargo/bin
   $GOPATH/bin
@@ -59,6 +60,7 @@ if [ -n "${commands[fzf-share]}" ]; then
   source "$(fzf-share)/key-bindings.zsh"
 fi
 
+#eval "$(jenv init -)"
 
 # Autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
@@ -103,3 +105,11 @@ load-nvmrc() {
 }
 # add-zsh-hook chpwd load-nvmrc
 # load-nvmrc
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/edude03/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/edude03/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/edude03/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/edude03/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
