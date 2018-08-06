@@ -19,8 +19,8 @@ let
     name = "zsh-nix-shell";
     src = fetchgit {
       url = "https://github.com/chisui/zsh-nix-shell.git";
-      rev = "5c3204ee128b9b70606651c8e063f681cb3785ae";
-      sha256 = "1ynj2rsr193lkaaf5gdzhfnyxj2svqqqqyj7i2h8ha434ay3c52p";
+      rev = "ac820013566f5f68d94b45c3c893cc478a245800";
+      sha256 = "06pcf6sn92ydhssli4fixks2ppps8qvfi0a5ny40sgncrjwyx5nj";
     };
 
     installPhase = ''
