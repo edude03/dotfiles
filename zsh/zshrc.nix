@@ -28,9 +28,25 @@ let
       cp -a . $out
     '';
   };
+
+  nord-dircolors = stdenv.mkDerivation rec {
+    name = "nord-dircolors";
+    version = "0.0.1";
+    src = fetchgit {
+      url = "https://github.com/arcticicestudio/nord-dircolors.git";
+      rev = "96b20ecb385e2068bb313cf47bbcbba76ca27885";
+      sha256 = "10pc0d09iyp5q0c0jz7plp0360fxaw2ajjgvnsprpfm6grx6fciz";
+    };
+
+    installPhase = ''
+      mkdir $out
+      cp -a . $out
+    '';
+  };
 in
 
-pkgs.writeText "zshrc" ''
+{
+zshConfig = ''
 
   # zmodload zsh/zprof
   export POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
@@ -73,7 +89,6 @@ pkgs.writeText "zshrc" ''
         return
       fi
     done
-    
     precmd_functions+=(powerline_precmd)
   }
 
@@ -100,26 +115,19 @@ pkgs.writeText "zshrc" ''
   export NVM_DIR="$HOME/.nvm"
 
   path+=(
-    #$HOME/.jenv/bin
     /usr/local/bin
-    $HOME/.cargo/bin
-    $GOPATH/bin
-    $GOROOT/bin
-    $HOME/miniconda3/bin
-    $HOME/anaconda3/bin
   )
+
+  # Setup pretty ls colors
+  unalias ls
+  alias ls="ls -l --color=auto"
+  eval $(${pkgs.coreutils}/bin/dircolors ${nord-dircolors}/src/dir_colors)
 
   # Autojump
   [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
-  # The next line updates PATH for the Google Cloud SDK.
-  if [ -f '/Users/edude03/Downloads/google-cloud-sdk/path.zsh.inc' ]; then 
-    source '/Users/edude03/Downloads/google-cloud-sdk/path.zsh.inc'; 
-  fi
-
-  # The next line enables shell command completion for gcloud.
-    if [ -f '/Users/edude03/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then 
-    source '/Users/edude03/Downloads/google-cloud-sdk/completion.zsh.inc'; 
-  fi
-
-''
+  # Configure Google Cloud SDK
+  source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
+  source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
+'';
+}

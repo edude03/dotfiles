@@ -1,6 +1,9 @@
 { pkgs, ...}:
 
 let
+  zshConfig = (import ../../zsh/zshrc.nix).zshConfig;
+  tmuxConfig = (import ../../tmux/tmux.nix).config;
+
   customPlugins.vim-quantum = pkgs.vimUtils.buildVimPlugin {
     name = "vim-quantum";
     src = pkgs.fetchFromGitHub {
@@ -40,7 +43,6 @@ in
     zsh
     tmux
     wget
-    fzf
     silver-searcher
     cmake
     tree
@@ -55,7 +57,24 @@ in
 
     # JS tools
     yarn
+
+    # Random tools
+    google-cloud-sdk
+    python36Packages.powerline
   ];
+
+  programs.fzf = {
+    enable = true; 
+  };
+
+ home.file.".tmux.conf" = {
+   text = tmuxConfig;
+ };
+
+  programs.zsh = {
+   enable = true;
+   initExtra = zshConfig;
+  };
 
   programs.neovim = {
 		enable = true;
