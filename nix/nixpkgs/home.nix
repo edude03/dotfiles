@@ -64,11 +64,15 @@ in
   ];
 
   programs.fzf = {
-    enable = true; 
+    enable = true;
   };
 
  home.file.".tmux.conf" = {
    text = tmuxConfig;
+ };
+
+ home.file.".hushlogin" = {
+   text = '''';
  };
 
   programs.zsh = {
@@ -121,6 +125,9 @@ in
 
 				" Enables block folding
 				set foldmethod=syntax
+
+        " Easy clearing of last search term
+        nnoremap <CR> :noh<CR><CR>
 			'';
 
 			vam.knownPlugins = pkgs.vimPlugins // customPlugins;
