@@ -120,7 +120,7 @@ zshConfig = ''
 
   # Setup pretty ls colors
   unalias ls
-  alias ls="ls -l --color=auto"
+  alias ls="${pkgs.coreutils}/bin/ls -l --color=auto"
   eval $(${pkgs.coreutils}/bin/dircolors ${nord-dircolors}/src/dir_colors)
 
   # Autojump
