@@ -36,7 +36,7 @@ let
 in
 {
   programs.home-manager.enable = true;
-  programs.home-manager.path = https://github.com/rycee/home-manager/archive/release-18.03.tar.gz;
+  programs.home-manager.path = https://github.com/rycee/home-manager/archive/master.tar.gz;
 
   home.packages = with pkgs; [
     git
@@ -50,6 +50,7 @@ in
     pstree
     hugo
     git-crypt
+    gnupg
 
     # Scala tools
     ammonite
@@ -61,10 +62,18 @@ in
     # Random tools
     google-cloud-sdk
     python36Packages.powerline
+    bat
+    gitAndTools.hub
   ];
 
   programs.fzf = {
     enable = true;
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "Michael Francis";
+    userEmail = "michael@melenion.com";
   };
 
  home.file.".tmux.conf" = {
@@ -73,6 +82,20 @@ in
 
  home.file.".hushlogin" = {
    text = '''';
+ };
+
+ home.file.".bash_profile" = {
+   text = ''
+    exec zsh
+   '';
+ };
+
+ home.file.".gnupg/gpg-agent.conf" = {
+   text = ''
+    enable-ssh-support
+    default-cache-ttl 60
+    max-cache-ttl 120
+   '';
  };
 
   programs.zsh = {

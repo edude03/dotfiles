@@ -1,7 +1,7 @@
 with import <nixpkgs> {};
 
 let
-  mkc = stdenv.mkDerivation { 
+  mkc = stdenv.mkDerivation {
     name = "mkc";
     src = fetchgit {
       url = "https://github.com/caarlos0/zsh-mkc.git";
@@ -14,8 +14,8 @@ let
       cp -a . $out
     '';
   };
-  
-  zsh-nix-shell = stdenv.mkDerivation { 
+
+  zsh-nix-shell = stdenv.mkDerivation {
     name = "zsh-nix-shell";
     src = fetchgit {
       url = "https://github.com/chisui/zsh-nix-shell.git";
@@ -76,8 +76,8 @@ zshConfig = ''
 
   source ${mkc}/mkc.plugin.zsh
 
-  source ${zsh-nix-shell}/nix-shell.plugin.zsh
-  #source ${pkgs.python36Packages.powerline}/share/zsh/site-contrib/powerline.zsh
+  # source ${zsh-nix-shell}/nix-shell.plugin.zsh
+  # source ${pkgs.python36Packages.powerline}/share/zsh/site-contrib/powerline.zsh
 
   function powerline_precmd() {
     PS1="$(${pkgs.powerline-go}/bin/powerline-go -error $? -shell zsh -modules $POWERLINE_GO_MODULES)"
@@ -90,6 +90,13 @@ zshConfig = ''
       fi
     done
     precmd_functions+=(powerline_precmd)
+  }
+
+  function start_ssh_agent() {
+    # Setup GPG Agent
+    export GPG_TTY="$(tty)"
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    gpgconf --launch gpg-agent
   }
 
   if [ "$TERM" != "linux" ]; then
@@ -118,6 +125,15 @@ zshConfig = ''
     /usr/local/bin
   )
 
+  local nixPath=(
+    ssh-auth-sock=$HOME/.gnupg/S.gpg-agent.ssh
+    ssh-config-file=/etc/nix/ssh-config-file
+    nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs
+    /nix/var/nix/profiles/per-user/root/channels
+  )
+
+  NIX_PATH=$(IFS=: ; echo "''${nixPath[*]}")
+
   # Setup pretty ls colors
   unalias ls
   alias ls="${pkgs.coreutils}/bin/ls -l --color=auto"
@@ -129,5 +145,7 @@ zshConfig = ''
   # Configure Google Cloud SDK
   source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
   source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
+
+  start_ssh_agent()
 '';
 }
