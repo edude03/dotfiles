@@ -146,6 +146,6 @@ zshConfig = ''
   source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
   source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
 
-  start_ssh_agent()
+  start_ssh_agent
 '';
 }
