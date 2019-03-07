@@ -33,6 +33,16 @@ let
       sha256 = "1vvjll44596905m9yxp33ac9sx2nq8l3kli2wjxi82hdah3xc3sm";
     };
   };
+
+  customPlugins.dhall-lang = pkgs.vimUtils.buildVimPlugin {
+    name = "dhall-lang";
+    src = pkgs.fetchFromGitHub {
+      owner = "vmchale";
+      repo = "dhall-vim";
+      rev = "54a0f463d098abf72c76a233a6a3f0f9dd069dfe";
+      sha256 = "0yacjv7kv79yilsyij43m378shzln0qra5c3nc5g2mc2i9hxcial";
+    };
+  };
 in
 {
   programs.home-manager.enable = true;
@@ -167,10 +177,12 @@ in
 
 						# Syntax support
 						"vim-nix"
+            "dhall-lang"
 
 						# Themes
 						"vim-quantum"
-						"vim-oceanic-next"
+            "vim-oceanic-next"
+
 					];
 				}
 			];
