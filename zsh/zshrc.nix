@@ -43,6 +43,20 @@ let
       cp -a . $out
     '';
   };
+
+  zsh-histdb = stdenv.mkDerivation {
+    name = "zsh-histdb";
+    src = fetchgit {
+      url = "https://github.com/larkery/zsh-histdb.git";
+      rev = "7c34b558cca374b6c8727fc08868f2bc044fd162";
+      sha256 = "04i8gsixjkqqq0nxmd45wp6irbfp9hy71qqxkq7f6b78aaknljwf";
+    };
+
+    installPhase = ''
+      mkdir $out
+      cp -a . $out
+    '';
+  };
 in
 
 {
@@ -62,6 +76,8 @@ zshConfig = ''
     bindkey "\e\e[C" forward-word
   fi
 
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+
   # Load specific oh-my-zsh bits I want / need
   source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/git.zsh
   source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/theme-and-appearance.zsh
@@ -75,6 +91,14 @@ zshConfig = ''
   source ${pkgs.fzf}/share/fzf/key-bindings.zsh
 
   source ${mkc}/mkc.plugin.zsh
+
+  # Setup zsh-histdb
+  source ${zsh-histdb}/sqlite-history.zsh
+  autoload -Uz add-zsh-hook
+  add-zsh-hook precmd histdb-update-outcome
+
+  source ${zsh-histdb}/histdb-interactive.zsh
+  bindkey '^r' _histdb-isearch
 
   # source ${zsh-nix-shell}/nix-shell.plugin.zsh
   # source ${pkgs.python36Packages.powerline}/share/zsh/site-contrib/powerline.zsh
@@ -143,7 +167,6 @@ zshConfig = ''
   [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
   # Configure Google Cloud SDK
-  source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
   source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
 
   start_ssh_agent
