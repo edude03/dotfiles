@@ -19,8 +19,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ntpeters";
       repo = "vim-better-whitespace";
-      rev = "70a38fa9683e8cd0635264dd1b69c6ccbee4e3e7";
-      sha256 = "1w16mrvydbvj9msi8p4ym1vasjx6kr4yd8jdhndz0pr3qasn2ix9";
+      rev = "166a409f1ddade37d1cfd25ba7c6b60270831a95";
+      sha256 = "0c63sv7vy7yzh8hvy5a5i3amnpk4kklkkm4kimgw2dzm1pqfz5y4";
     };
   };
 
@@ -74,6 +74,7 @@ in
     python36Packages.powerline
     bat
     gitAndTools.hub
+
   ];
 
   programs.fzf = {
