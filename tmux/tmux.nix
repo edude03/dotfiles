@@ -8,9 +8,9 @@ with import <nixpkgs>{};
     bind -n WheelDownPane select-pane -t= \;                 send-keys -M
 
     # Load the daemon
-    run-shell "${pkgs.python36Packages.powerline}/bin/powerline-daemon -q"
+    run-shell "${pkgs.python38Packages.powerline}/bin/powerline-daemon -q"
     # Loads Powerline
-    source "${pkgs.python36Packages.powerline}/share/tmux/powerline.conf"
+    source "${pkgs.python38Packages.powerline}/share/tmux/powerline.conf"
 
     # Prevents vim insert mode delay
     set -sg escape-time 0
