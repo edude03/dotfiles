@@ -153,14 +153,14 @@ zshConfig = ''
     /usr/local/bin
   )
 
-  local nixPath=(
-    ssh-auth-sock=$HOME/.gnupg/S.gpg-agent.ssh
-    ssh-config-file=/etc/nix/ssh-config-file
-    nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs
-    /nix/var/nix/profiles/per-user/root/channels
-  )
+#  local nixPath=(
+#    ssh-auth-sock=$HOME/.gnupg/S.gpg-agent.ssh
+#    ssh-config-file=/etc/nix/ssh-config-file
+#    nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs
+#    /nix/var/nix/profiles/per-user/root/channels
+#  )
 
-  NIX_PATH=$(IFS=: ; echo "''${nixPath[*]}")
+#  NIX_PATH=$(IFS=: ; echo "''${nixPath[*]}")
 
   # Setup pretty ls colors
   unalias ls
@@ -173,6 +173,6 @@ zshConfig = ''
   # Configure Google Cloud SDK
   source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
 
-  start_ssh_agent
+  # start_ssh_agent
 '';
 }
