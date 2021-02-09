@@ -61,6 +61,8 @@ in
     hugo
     git-crypt
     gnupg
+    direnv
+    fzf
 
     # Scala tools
     ammonite
@@ -71,10 +73,9 @@ in
 
     # Random tools
     google-cloud-sdk
-    python36Packages.powerline
+    python38Packages.powerline
     bat
     gitAndTools.hub
-
   ];
 
   programs.fzf = {
@@ -118,9 +119,8 @@ in
 		enable = true;
 		withPython  = false;  # I think I don't need it for now; [NOTE: rebuilds]
 		withPython3 = true;  #
-		#vimAlias = true;
-		configure = {
-			customRC = ''
+		vimAlias = true;
+			extraConfig = ''
 				" vim config
 				" Enable Line Numbers
 				set number
@@ -175,29 +175,23 @@ in
         nnoremap <silent> <C-p> :ProjectFiles<CR>
 			'';
 
-			vam.knownPlugins = pkgs.vimPlugins // customPlugins;
-			vam.pluginDictionaries = [
-				{ names = [
-						"vim-airline"
-						"vim-indent-guides"
-						"nerdtree"
-						"fzf-vim"
-						"fugitive"
-						"ale"
-						"vim-better-whitespace"
-						"vim-gitgutter"
+      plugins = with pkgs.vimPlugins // customPlugins; [
+        vim-airline
+        vim-indent-guides
+        nerdtree
+        fzf-vim
+        fugitive
+        ale
+        vim-better-whitespace
+        vim-gitgutter
 
-						# Syntax support
-						"vim-nix"
-            "dhall-lang"
+        # Syntax support
+        vim-nix
+        dhall-lang
 
-						# Themes
-						"vim-quantum"
-            "vim-oceanic-next"
-
-					];
-				}
-			];
-		};
+        # Themes
+        vim-quantum
+        vim-oceanic-next
+      ];
 	};
 }
