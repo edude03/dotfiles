@@ -76,7 +76,9 @@ zshConfig = ''
     bindkey "\e\e[C" forward-word
   fi
 
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+  if [[ -z $NIX_PATH ]]; then
+    source .nix-profile/etc/profile.d/nix.sh
+  fi
 
   # Load specific oh-my-zsh bits I want / need
   source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/git.zsh
