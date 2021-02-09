@@ -162,6 +162,17 @@ in
 
         " Easy clearing of last search term
         nnoremap <CR> :noh<CR><CR>
+
+        function! s:find_files()
+          let git_dir = system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+          if git_dir !=# '''
+            call fzf#vim#gitfiles(git_dir, fzf#vim#with_preview('right'))
+          else
+            call fzf#vim#files('.', fzf#vim#with_preview('right'))
+          endif
+        endfunction
+        command! ProjectFiles execute s:find_files()
+        nnoremap <silent> <C-p> :ProjectFiles<CR>
 			'';
 
 			vam.knownPlugins = pkgs.vimPlugins // customPlugins;
