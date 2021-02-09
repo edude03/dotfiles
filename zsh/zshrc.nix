@@ -103,7 +103,7 @@ zshConfig = ''
   bindkey '^r' _histdb-isearch
 
   # source ${zsh-nix-shell}/nix-shell.plugin.zsh
-  # source ${pkgs.python36Packages.powerline}/share/zsh/site-contrib/powerline.zsh
+  # source ${pkgs.python38Packages.powerline}/share/zsh/site-contrib/powerline.zsh
 
   function powerline_precmd() {
     PS1="$(${pkgs.powerline-go}/bin/powerline-go -error $? -shell zsh -modules $POWERLINE_GO_MODULES)"
