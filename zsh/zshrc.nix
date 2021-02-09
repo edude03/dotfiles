@@ -109,6 +109,8 @@ zshConfig = ''
     PS1="$(${pkgs.powerline-go}/bin/powerline-go -error $? -shell zsh -modules $POWERLINE_GO_MODULES)"
   }
 
+  eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
+
   function install_powerline_precmd() {
     for s in "''${precmd_functions[@]}"; do
       if [ "$s" = "powerline_precmd" ]; then
