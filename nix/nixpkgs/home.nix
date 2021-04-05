@@ -76,6 +76,11 @@ in
     python38Packages.powerline
     bat
     gitAndTools.hub
+
+    # Kubernetes tooling
+    kubectx
+    k9s
+    dive
   ];
 
   programs.fzf = {

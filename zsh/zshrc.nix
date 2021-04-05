@@ -77,7 +77,7 @@ zshConfig = ''
   fi
 
   if [[ -z $NIX_PATH ]]; then
-    source .nix-profile/etc/profile.d/nix.sh
+    source $HOME/.nix-profile/etc/profile.d/nix.sh
   fi
 
   # Load specific oh-my-zsh bits I want / need
@@ -149,8 +149,13 @@ zshConfig = ''
   export GOPATH="$HOME/golang"
   export NVM_DIR="$HOME/.nvm"
 
-  path+=(
+
+
+  path=(
+    $HOME/.bin
+    $HOME/.nix-profile/bin
     /usr/local/bin
+    $path
   )
 
 #  local nixPath=(
