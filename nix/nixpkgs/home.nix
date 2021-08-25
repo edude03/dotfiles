@@ -103,6 +103,12 @@ in {
     '';
   };
 
+  home.file.".bash_profile" = {
+    text = ''
+      [ -t 0 ] && exec zsh
+    '';
+  };
+
   programs.zsh = {
     enable = true;
     initExtra = zshConfig;
@@ -110,8 +116,6 @@ in {
 
   programs.neovim = {
     enable = true;
-    withPython = false; # I think I don't need it for now; [NOTE: rebuilds]
-    withPython3 = true;
     vimAlias = true;
     extraConfig = builtins.readFile ../../vim/.vimrc;
 

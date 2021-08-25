@@ -29,7 +29,7 @@ let
     '';
   };
 
-  nord-dircolors = stdenv.mkDerivation rec {
+  nord-dircolors = stdenv.mkDerivation {
     name = "nord-dircolors";
     version = "0.0.1";
     src = fetchgit {
@@ -61,18 +61,15 @@ in
 
 {
 zshConfig = ''
-
   # zmodload zsh/zprof
   export POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
   export POWERLEVEL9K_SHORTEN_STRATEGY='truncate_from_right'
   DEFAULT_USER="edude03"
   export TERM="xterm-256color"
 
-  POWERLINE_GO_MODULES="nix-shell,ssh,cwd,perms,git,hg,jobs,exit,root"
-
   if [[ "$OSTYPE" == "darwin"* ]]; then
     # Fixes moving on mac
-    bindkey "\e\e[D" backward-word 
+    bindkey "\e\e[D" backward-word
     bindkey "\e\e[C" forward-word
   fi
 
@@ -81,13 +78,11 @@ zshConfig = ''
   fi
 
   # Load specific oh-my-zsh bits I want / need
-  source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/git.zsh
-  source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/theme-and-appearance.zsh
-  source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/completion.zsh
-  source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/directories.zsh
-  source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/key-bindings.zsh
-  source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/spectrum.zsh
-  source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/history.zsh
+  OMZ_LIBS=(git theme-and-appearance completion directories key-bindings spectrum history)
+  
+  for mod in $OMZ_LIBS[@]; do
+    source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/"$mod".zsh
+  done
 
   source ${pkgs.fzf}/share/fzf/completion.zsh
   source ${pkgs.fzf}/share/fzf/key-bindings.zsh
@@ -105,20 +100,7 @@ zshConfig = ''
   # source ${zsh-nix-shell}/nix-shell.plugin.zsh
   # source ${pkgs.python38Packages.powerline}/share/zsh/site-contrib/powerline.zsh
 
-  function powerline_precmd() {
-    PS1="$(${pkgs.powerline-go}/bin/powerline-go -error $? -shell zsh -modules $POWERLINE_GO_MODULES)"
-  }
-
   eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
-
-  function install_powerline_precmd() {
-    for s in "''${precmd_functions[@]}"; do
-      if [ "$s" = "powerline_precmd" ]; then
-        return
-      fi
-    done
-    precmd_functions+=(powerline_precmd)
-  }
 
   function start_ssh_agent() {
     # Setup GPG Agent
@@ -126,10 +108,6 @@ zshConfig = ''
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     gpgconf --launch gpg-agent
   }
-
-  if [ "$TERM" != "linux" ]; then
-    install_powerline_precmd
-  fi
 
   autoload -Uz compinit
   if [[ -n ''${ZDOTDIR:-''${HOME}}/$ZSH_COMPDUMP(#qN.mh+24) ]]; then
@@ -141,15 +119,12 @@ zshConfig = ''
   # Ensure nvim is used as editor
   export EDITOR=nvim
 
-
   if [[ $(command -v rbenv)  ]]; then
     eval "$(rbenv init -)"
   fi
 
   export GOPATH="$HOME/golang"
   export NVM_DIR="$HOME/.nvm"
-
-
 
   path=(
     $HOME/.bin
@@ -177,6 +152,8 @@ zshConfig = ''
 
   # Configure Google Cloud SDK
   source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
+
+  eval "$(${starship}/bin/starship init zsh)"
 
   # start_ssh_agent
 '';
