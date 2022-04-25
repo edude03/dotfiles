@@ -1,0 +1,109 @@
+{
+  "nodes": {
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1649676176,
+        "narHash": "sha256-OWKJratjt2RW151VUlJPRALb7OU2S5s+f0vLj4o1bHM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "a4b154ebbdc88c8498a5c7b01589addc9e9cb678",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1650234580,
+        "narHash": "sha256-wTmlRedCrDl+XYJom65GMfI3RgA3eZE/w03lD28Txoc=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "742c6cb3e9d866e095c629162fe5faf519adeb26",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1650109093,
+        "narHash": "sha256-tqlnKrAdJktRLXTou9le0oTqrYBAFpGscV5RADdpArU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "faad370edcb37162401be50d45526f52bb16a713",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1650249653,
+        "narHash": "sha256-PTJVSzXdAhIebtYFpwXUJqWPGjVfjZFRE6IHjebuNEw=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "b6f5bf2cf0393193529b717772684216407b9896",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs_2",
+        "vim-oceanic-next": "vim-oceanic-next",
+        "vim-quantum": "vim-quantum"
+      }
+    },
+    "vim-oceanic-next": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1612533325,
+        "narHash": "sha256-AhF4v5bSvaSWDu4LL6Rm8+20/M0rd7/9pTUcrLpfX/E=",
+        "owner": "mhartington",
+        "repo": "oceanic-next",
+        "rev": "5ef31a34204f84714885ae9036f66a626036c3dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mhartington",
+        "repo": "oceanic-next",
+        "type": "github"
+      }
+    },
+    "vim-quantum": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1521851603,
+        "narHash": "sha256-8lFaCrjjKRlO3RObIamhlQNr/WHMgUynZonM5KQnVfI=",
+        "owner": "tyrannicaltoucan",
+        "repo": "vim-quantum",
+        "rev": "78c435ba226f465e243b7c728b87ad13d37e9cd6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tyrannicaltoucan",
+        "repo": "vim-quantum",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

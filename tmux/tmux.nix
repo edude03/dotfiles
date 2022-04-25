@@ -1,5 +1,4 @@
-with import <nixpkgs>{}; 
-
+{ pkgs, ...}:
 {
   config = ''
     # Mouse Config

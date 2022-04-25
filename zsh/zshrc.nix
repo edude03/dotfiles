@@ -1,9 +1,8 @@
-with import <nixpkgs> {};
-
+{ pkgs, ...}:
 let
-  mkc = stdenv.mkDerivation {
+  mkc = pkgs.stdenv.mkDerivation {
     name = "mkc";
-    src = fetchgit {
+    src = pkgs.fetchgit {
       url = "https://github.com/caarlos0/zsh-mkc.git";
       rev = "8d5293f009c9b7170ffa991afd0b5eb7d9e5325b";
       sha256 = "0np1vpgvr7345zf29mac77fzaaggcwwdfy4l2g04sjmz2jighgw4";
@@ -15,9 +14,9 @@ let
     '';
   };
 
-  zsh-nix-shell = stdenv.mkDerivation {
+  zsh-nix-shell = pkgs.stdenv.mkDerivation {
     name = "zsh-nix-shell";
-    src = fetchgit {
+    src = pkgs.fetchgit {
       url = "https://github.com/chisui/zsh-nix-shell.git";
       rev = "69e90b9bccecd84734948fb03087c2454a8522f6";
       sha256 = "0snhch9hfy83d4amkyxx33izvkhbwmindy0zjjk28hih1a9l2jmx";
@@ -29,10 +28,10 @@ let
     '';
   };
 
-  nord-dircolors = stdenv.mkDerivation {
+  nord-dircolors = pkgs.stdenv.mkDerivation {
     name = "nord-dircolors";
     version = "0.0.1";
-    src = fetchgit {
+    src = pkgs.fetchgit {
       url = "https://github.com/arcticicestudio/nord-dircolors.git";
       rev = "96b20ecb385e2068bb313cf47bbcbba76ca27885";
       sha256 = "10pc0d09iyp5q0c0jz7plp0360fxaw2ajjgvnsprpfm6grx6fciz";
@@ -44,9 +43,9 @@ let
     '';
   };
 
-  zsh-histdb = stdenv.mkDerivation {
+  zsh-histdb = pkgs.stdenv.mkDerivation {
     name = "zsh-histdb";
-    src = fetchgit {
+    src = pkgs.fetchgit {
       url = "https://github.com/larkery/zsh-histdb.git";
       rev = "7c34b558cca374b6c8727fc08868f2bc044fd162";
       sha256 = "04i8gsixjkqqq0nxmd45wp6irbfp9hy71qqxkq7f6b78aaknljwf";
@@ -150,10 +149,7 @@ zshConfig = ''
   # Autojump
   [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
-  # Configure Google Cloud SDK
-  source ${pkgs.google-cloud-sdk}/google-cloud-sdk/completion.zsh.inc
-
-  eval "$(${starship}/bin/starship init zsh)"
+  eval "$(${pkgs.starship}/bin/starship init zsh)"
 
   # start_ssh_agent
 '';
