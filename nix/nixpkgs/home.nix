@@ -38,6 +38,7 @@ in {
     kubectx
     k9s
     dive
+    kubie
   ];
 
   programs.fzf = { enable = true; };

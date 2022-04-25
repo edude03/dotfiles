@@ -127,6 +127,7 @@ zshConfig = ''
 
   path=(
     $HOME/.bin
+    $HOME/.cargo/bin
     $HOME/.nix-profile/bin
     /usr/local/bin
     $path
@@ -148,6 +149,7 @@ zshConfig = ''
 
   # Autojump
   [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
 
   eval "$(${pkgs.starship}/bin/starship init zsh)"
 
