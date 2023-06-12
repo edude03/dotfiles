@@ -21,7 +21,7 @@ mkdir -p ~/.config
 ln -s $HOME/dotfiles/nix/nixpkgs ~/.config/nixpkgs
 
 # Install home manager
-HM_PATH=https://github.com/rycee/home-manager/archive/master.tar.gz
+HM_PATH=https://github.com/nix-community/home-manager/archive/master.tar.gz
 nix-shell $HM_PATH -A install
 
 # (TODO) Install the powerline fonts & configure iTerm2 to use them
