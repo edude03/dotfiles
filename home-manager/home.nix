@@ -47,6 +47,11 @@
     enable = true;
     userName = "Michael Francis";
     userEmail = "michael@melenion.com";
+    extraConfig = {
+      submodule = {
+        recurse = true;
+      };
+    };
   };
 
   home.file.".tmux.conf" = { text = tmuxConfig; };

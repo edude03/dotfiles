@@ -134,5 +134,7 @@ zshConfig = ''
   eval "$(${pkgs.starship}/bin/starship init zsh)"
 
   # start_ssh_agent
+
+  umask 022
 '';
 }
