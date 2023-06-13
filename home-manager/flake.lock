@@ -67,8 +67,23 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
+        "tmuxConf": "tmuxConf",
         "vim-oceanic-next": "vim-oceanic-next",
-        "vim-quantum": "vim-quantum"
+        "vim-quantum": "vim-quantum",
+        "zshConf": "zshConf"
+      }
+    },
+    "tmuxConf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-8f6Evh5xSN4hlSW0QcZu9MIMXPc6YeTzdtsVQqYTcFc=",
+        "path": "/nix/store/yb0c82irgl76bzld0n45lp0xcnwhnhgz-source/tmux/tmux.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/yb0c82irgl76bzld0n45lp0xcnwhnhgz-source/tmux/tmux.nix",
+        "type": "path"
       }
     },
     "vim-oceanic-next": {
@@ -101,6 +116,19 @@
         "owner": "tyrannicaltoucan",
         "repo": "vim-quantum",
         "type": "github"
+      }
+    },
+    "zshConf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-Gw3V8H0QR9ILdlUGWCigFRlq7Z+WlCwoSpHMdhFV1cw=",
+        "path": "/nix/store/yb0c82irgl76bzld0n45lp0xcnwhnhgz-source/zsh/zshrc.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/yb0c82irgl76bzld0n45lp0xcnwhnhgz-source/zsh/zshrc.nix",
+        "type": "path"
       }
     }
   },

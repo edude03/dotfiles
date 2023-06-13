@@ -1,8 +1,8 @@
-{ pkgs, customPlugins, ... }:
+{ pkgs, customPlugins, tmuxConfig, zshConfig, ... }:
 
 let
-  zshConfig = (import ../../zsh/zshrc.nix {inherit pkgs; }).zshConfig;
-  tmuxConfig = (import ../../tmux/tmux.nix { inherit pkgs; }).config;
+  # zshConfig = (import ../../zsh/zshrc.nix {inherit pkgs; }).zshConfig;
+  # tmuxConfig = (import ../../tmux/tmux.nix { inherit pkgs; }).config;
 in {
   programs.home-manager.enable = true;
   programs.home-manager.path = "https://github.com/nix-community/home-manager/archive/release-21.11.tar.gz";
@@ -30,7 +30,7 @@ in {
 
     # Random tools
     google-cloud-sdk
-    python38Packages.powerline
+    python39Packages.powerline
     bat
     gitAndTools.hub
 
@@ -75,7 +75,7 @@ in {
   programs.neovim = {
     enable = true;
     vimAlias = true;
-    extraConfig = builtins.readFile ../../vim/.vimrc;
+    # extraConfig = builtins.readFile ${git+file:../../}vim/.vimrc;
 
     plugins = with pkgs.vimPlugins // customPlugins; [
       vim-airline

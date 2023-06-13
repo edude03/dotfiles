@@ -96,9 +96,6 @@ zshConfig = ''
   source ${zsh-histdb}/histdb-interactive.zsh
   bindkey '^r' _histdb-isearch
 
-  # source ${zsh-nix-shell}/nix-shell.plugin.zsh
-  # source ${pkgs.python38Packages.powerline}/share/zsh/site-contrib/powerline.zsh
-
   eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
 
   function start_ssh_agent() {
