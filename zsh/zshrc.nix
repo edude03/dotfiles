@@ -88,14 +88,6 @@ zshConfig = ''
 
   source ${mkc}/mkc.plugin.zsh
 
-  # Setup zsh-histdb
-  source ${zsh-histdb}/sqlite-history.zsh
-  autoload -Uz add-zsh-hook
-  add-zsh-hook precmd histdb-update-outcome
-
-  source ${zsh-histdb}/histdb-interactive.zsh
-  bindkey '^r' _histdb-isearch
-
   eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
 
   function start_ssh_agent() {
@@ -129,15 +121,6 @@ zshConfig = ''
     /usr/local/bin
     $path
   )
-
-#  local nixPath=(
-#    ssh-auth-sock=$HOME/.gnupg/S.gpg-agent.ssh
-#    ssh-config-file=/etc/nix/ssh-config-file
-#    nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixpkgs
-#    /nix/var/nix/profiles/per-user/root/channels
-#  )
-
-#  NIX_PATH=$(IFS=: ; echo "''${nixPath[*]}")
 
   # Setup pretty ls colors
   unalias ls

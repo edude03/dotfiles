@@ -38,7 +38,7 @@
                 };
                 tmuxConfig = (import tmuxConf {inherit pkgs; }).config;
                 zshConfig = (import zshConf {inherit pkgs; }).zshConfig;
-            
+
         in rec {
             packages = {
                 homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {

@@ -1,11 +1,11 @@
 { pkgs, customPlugins, tmuxConfig, zshConfig, ... }:
 
-let
-  # zshConfig = (import ../../zsh/zshrc.nix {inherit pkgs; }).zshConfig;
-  # tmuxConfig = (import ../../tmux/tmux.nix { inherit pkgs; }).config;
-in {
+{
   programs.home-manager.enable = true;
-  programs.home-manager.path = "https://github.com/nix-community/home-manager/archive/release-21.11.tar.gz";
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   home.packages = with pkgs; [
     gh
@@ -32,7 +32,7 @@ in {
     google-cloud-sdk
     python39Packages.powerline
     bat
-    gitAndTools.hub
+    nerdfonts
 
     # Kubernetes tooling
     kubectx
