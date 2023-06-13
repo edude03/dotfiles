@@ -6,8 +6,8 @@ jobs:
     name: Build
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
-    - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@main
-    - name: Run `nix build`
-      run: nix build .
+      - uses: actions/checkout@v3
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Run `Home Manager`
+        run: nix run home-manager -- switch
