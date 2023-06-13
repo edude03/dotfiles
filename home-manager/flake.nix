@@ -4,11 +4,11 @@
         home-manager.url = "github:nix-community/home-manager";
         nixpkgs.url = "github:nixos/nixpkgs";
         vim-quantum = {
-            flake = false; 
+            flake = false;
             url = "github:tyrannicaltoucan/vim-quantum";
         };
         vim-oceanic-next = {
-            flake = false; 
+            flake = false;
             url = "github:mhartington/oceanic-next";
         };
         tmuxConf = {
@@ -17,13 +17,13 @@
         };
         zshConf = {
             url = "../zsh/zshrc.nix";
-            flake = false; 
+            flake = false;
         };
     };
 
     outputs = { flake-utils, home-manager, nixpkgs, vim-quantum, vim-oceanic-next, tmuxConf, zshConf, ...}:
         flake-utils.lib.eachDefaultSystem (system:
-            let 
+            let
                 pkgs = nixpkgs.legacyPackages.${system};
                 username = "edude03";
                 customPlugins = {

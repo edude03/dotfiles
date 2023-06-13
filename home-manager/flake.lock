@@ -78,11 +78,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-8f6Evh5xSN4hlSW0QcZu9MIMXPc6YeTzdtsVQqYTcFc=",
-        "path": "/nix/store/fmadhmf18fzwswqdq8628293ljfqi99n-source/tmux/tmux.nix",
+        "path": "/nix/store/x0mgpndbkpbdsc1cv87w3acvq08im817-source/tmux/tmux.nix",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/fmadhmf18fzwswqdq8628293ljfqi99n-source/tmux/tmux.nix",
+        "path": "/nix/store/x0mgpndbkpbdsc1cv87w3acvq08im817-source/tmux/tmux.nix",
         "type": "path"
       }
     },
@@ -123,11 +123,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-U6OjfgFChgSHwq969g+IyX/KOl3XvrdHB0EBigPvCrQ=",
-        "path": "/nix/store/fmadhmf18fzwswqdq8628293ljfqi99n-source/zsh/zshrc.nix",
+        "path": "/nix/store/x0mgpndbkpbdsc1cv87w3acvq08im817-source/zsh/zshrc.nix",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/fmadhmf18fzwswqdq8628293ljfqi99n-source/zsh/zshrc.nix",
+        "path": "/nix/store/x0mgpndbkpbdsc1cv87w3acvq08im817-source/zsh/zshrc.nix",
         "type": "path"
       }
     }

@@ -39,6 +39,7 @@
     k9s
     dive
     kubie
+    kind
   ];
 
   programs.fzf = { enable = true; };
