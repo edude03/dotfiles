@@ -1,4 +1,4 @@
-{ pkgs, customPlugins, tmuxConfig, zshConfig, ... }:
+{ pkgs, customPlugins, tmuxConfig, zshConfig, nvimConfig, ... }:
 
 {
   programs.home-manager.enable = true;
@@ -33,6 +33,8 @@
     python39Packages.powerline
     bat
     nerdfonts
+    helix
+    nixfmt
 
     # Kubernetes tooling
     kubectx
@@ -48,14 +50,10 @@
     enable = true;
     userName = "Michael Francis";
     userEmail = "michael@melenion.com";
-    extraConfig = {
-      submodule = {
-        recurse = true;
-      };
-    };
+    extraConfig = { submodule = { recurse = true; }; };
   };
 
-  home.file.".tmux.conf" = { text = tmuxConfig; };
+  # home.file.".tmux.conf" = { text = tmuxConfig; };
 
   home.file.".hushlogin" = { text = ""; };
 
@@ -81,7 +79,7 @@
   programs.neovim = {
     enable = true;
     vimAlias = true;
-    # extraConfig = builtins.readFile ${git+file:../../}vim/.vimrc;
+    extraConfig = builtins.readFile nvimConfig;
 
     plugins = with pkgs.vimPlugins // customPlugins; [
       vim-airline
