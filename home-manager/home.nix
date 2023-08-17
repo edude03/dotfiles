@@ -39,7 +39,10 @@
     bat
     nerdfonts
     helix
+
+    # Nix tools
     nixfmt
+    alejandra
 
     # Kubernetes tooling
     kubectx
@@ -64,6 +67,9 @@
       };
       rebase = {
         autoStash = true;
+      };
+      core = {
+        excludesFile = "~/dotfiles/.gitignore";
       };
     };
   };
