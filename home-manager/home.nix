@@ -6,6 +6,11 @@
     enable = true;
     enableZshIntegration = true;
   };
+  # programs.doom-emacs = {
+  #             enable = true;
+  #             doomPrivateDir = ./doom.d; # Directory containing your config.el, init.el
+  #                                        # and packages.el files
+  #           };
 
   home.packages = with pkgs; [
     gh
@@ -50,7 +55,17 @@
     enable = true;
     userName = "Michael Francis";
     userEmail = "michael@melenion.com";
-    extraConfig = { submodule = { recurse = true; }; };
+    extraConfig = {
+      submodule = {
+        recurse = true;
+      };
+      pull = {
+        rebase = true;
+      };
+      rebase = {
+        autoStash = true;
+      };
+    };
   };
 
   # home.file.".tmux.conf" = { text = tmuxConfig; };

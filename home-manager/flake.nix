@@ -3,6 +3,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs";
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     vim-quantum = {
       flake = false;
       url = "github:tyrannicaltoucan/vim-quantum";
@@ -26,7 +27,7 @@
   };
 
   outputs = { flake-utils, home-manager, nixpkgs, vim-quantum, vim-oceanic-next
-    , tmuxConf, zshConf, nvimConfig, ... }:
+    , tmuxConf, zshConf, nvimConfig, nix-doom-emacs, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -53,6 +54,7 @@
                 inherit nvimConfig tmuxConfig customPlugins zshConfig;
               };
               modules = [
+                # nix-doom-emacs.hmModule
                 ./home.nix
                 {
                   home = {
