@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   mkc = pkgs.stdenv.mkDerivation {
     name = "mkc";
     src = pkgs.fetchgit {
@@ -56,84 +55,85 @@ let
       cp -a . $out
     '';
   };
-
 in {
   zshConfig = ''
-      # zmodload zsh/zprof
-      export POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-      export POWERLEVEL9K_SHORTEN_STRATEGY='truncate_from_right'
-      DEFAULT_USER="edude03"
-      export TERM="xterm-256color"
+    # zmodload zsh/zprof
+    export POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+    export POWERLEVEL9K_SHORTEN_STRATEGY='truncate_from_right'
+    DEFAULT_USER="edude03"
+    export TERM="xterm-256color"
 
-      if [[ "$OSTYPE" == "darwin"* ]]; then
-        # Fixes moving on mac
-        bindkey "\e\e[D" backward-word
-        bindkey "\e\e[C" forward-word
-      fi
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+      # Fixes moving on mac
+      bindkey "\e\e[D" backward-word
+      bindkey "\e\e[C" forward-word
+    fi
 
-      if [[ -z $NIX_PATH ]]; then
-        . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-      fi
+    if [[ -z $NIX_PATH ]]; then
+      . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    fi
 
-      # Load specific oh-my-zsh bits I want / need
-      OMZ_LIBS=(git theme-and-appearance completion directories key-bindings spectrum history)
+    # Load specific oh-my-zsh bits I want / need
+    OMZ_LIBS=(git theme-and-appearance completion directories key-bindings spectrum history)
 
-      for mod in $OMZ_LIBS[@]; do
-        source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/"$mod".zsh
-      done
+    for mod in $OMZ_LIBS[@]; do
+      source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/"$mod".zsh
+    done
 
-      source ${pkgs.fzf}/share/fzf/completion.zsh
-      source ${pkgs.fzf}/share/fzf/key-bindings.zsh
+    source ${pkgs.fzf}/share/fzf/completion.zsh
+    source ${pkgs.fzf}/share/fzf/key-bindings.zsh
 
-      source ${mkc}/mkc.plugin.zsh
+    source ${mkc}/mkc.plugin.zsh
 
-      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
+    eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
 
-      function start_ssh_agent() {
-        # Setup GPG Agent
-        export GPG_TTY="$(tty)"
-        export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-        gpgconf --launch gpg-agent
-      }
+    source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-      autoload -Uz compinit
-      if [[ -n ''${ZDOTDIR:-''${HOME}}/$ZSH_COMPDUMP(#qN.mh+24) ]]; then
-    	  compinit -d $ZSH_COMPDUMP;
-      else
-    	  compinit -C;
-      fi;
+    function start_ssh_agent() {
+      # Setup GPG Agent
+      export GPG_TTY="$(tty)"
+      export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+      gpgconf --launch gpg-agent
+    }
 
-      # Ensure nvim is used as editor
-      export EDITOR=nvim
+    autoload -Uz compinit
+    if [[ -n ''${ZDOTDIR:-''${HOME}}/$ZSH_COMPDUMP(#qN.mh+24) ]]; then
+     compinit -d $ZSH_COMPDUMP;
+    else
+     compinit -C;
+    fi;
 
-      if [[ $(command -v rbenv)  ]]; then
-        eval "$(rbenv init -)"
-      fi
+    # Ensure nvim is used as editor
+    export EDITOR=nvim
 
-      export GOPATH="$HOME/golang"
-      export NVM_DIR="$HOME/.nvm"
+    if [[ $(command -v rbenv)  ]]; then
+      eval "$(rbenv init -)"
+    fi
 
-      path=(
-        $HOME/.bin
-        $HOME/.cargo/bin
-        $HOME/.nix-profile/bin
-        /usr/local/bin
-        $path
-      )
+    export GOPATH="$HOME/golang"
+    export NVM_DIR="$HOME/.nvm"
 
-      # Setup pretty ls colors
-      unalias ls
-      alias ls="${pkgs.coreutils}/bin/ls -l --color=auto"
-      eval $(${pkgs.coreutils}/bin/dircolors ${nord-dircolors}/src/dir_colors)
+    path=(
+      $HOME/.bin
+      $HOME/.cargo/bin
+      $HOME/.nix-profile/bin
+      /usr/local/bin
+      $path
+    )
 
-      # Autojump
-      [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+    # Setup pretty ls colors
+    unalias ls
+    alias ls="${pkgs.coreutils}/bin/ls -l --color=auto"
+    eval $(${pkgs.coreutils}/bin/dircolors ${nord-dircolors}/src/dir_colors)
+
+    # Autojump
+    [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 
-      eval "$(${pkgs.starship}/bin/starship init zsh)"
+    eval "$(${pkgs.starship}/bin/starship init zsh)"
 
-      # start_ssh_agent
+    # start_ssh_agent
 
-      umask 022
+    umask 022
   '';
 }
