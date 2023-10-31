@@ -1,10 +1,17 @@
-{ pkgs, customPlugins, tmuxConfig, zshConfig, nvimConfig, ... }:
-
 {
+  pkgs,
+  customPlugins,
+  tmuxConfig,
+  zshConfig,
+  nvimConfig,
+  atuin,
+  ...
+}: {
   programs.home-manager.enable = true;
   programs.atuin = {
     enable = true;
     enableZshIntegration = true;
+    package = atuin;
   };
   # programs.doom-emacs = {
   #             enable = true;
@@ -52,7 +59,7 @@
     kind
   ];
 
-  programs.fzf = { enable = true; };
+  programs.fzf = {enable = true;};
 
   programs.git = {
     enable = true;
@@ -76,7 +83,7 @@
 
   # home.file.".tmux.conf" = { text = tmuxConfig; };
 
-  home.file.".hushlogin" = { text = ""; };
+  home.file.".hushlogin" = {text = "";};
 
   home.file.".gnupg/gpg-agent.conf" = {
     text = ''

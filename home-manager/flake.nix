@@ -24,6 +24,9 @@
       url = "../vim/.vimrc";
       flake = false;
     };
+    atuinPkg = {
+      url = "github:atuinsh/atuin";
+    };
   };
 
   outputs = {
@@ -36,6 +39,7 @@
     zshConf,
     nvimConfig,
     nix-doom-emacs,
+    atuinPkg,
     ...
   }:
     flake-utils.lib.eachDefaultSystem (system: let
@@ -53,12 +57,13 @@
       };
       tmuxConfig = (import tmuxConf {inherit pkgs;}).config;
       zshConfig = (import zshConf {inherit pkgs;}).zshConfig;
+      atuin = atuinPkg.packages.${system}.atuin;
     in rec {
       packages = {
         homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
-            inherit nvimConfig tmuxConfig customPlugins zshConfig;
+            inherit nvimConfig tmuxConfig customPlugins zshConfig atuin;
           };
           modules = [
             # nix-doom-emacs.hmModule
