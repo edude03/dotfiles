@@ -42,10 +42,11 @@
 
     # Random tools
     google-cloud-sdk
-    python39Packages.powerline
+    python310Packages.powerline
     bat
     nerdfonts
     helix
+    jq
 
     # Nix tools
     nixfmt
@@ -57,6 +58,7 @@
     dive
     kubie
     kind
+    kubelogin-oidc
   ];
 
   programs.fzf = {enable = true;};
