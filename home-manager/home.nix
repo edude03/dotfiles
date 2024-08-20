@@ -51,6 +51,7 @@
     # Nix tools
     nixfmt
     alejandra
+    nixd
 
     # Kubernetes tooling
     kubectx
