@@ -49,7 +49,6 @@
     jq
 
     # Nix tools
-    nixfmt
     alejandra
     nixd
 
