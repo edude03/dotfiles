@@ -5,6 +5,7 @@
   zshConfig,
   nvimConfig,
   atuin,
+  nil,
   ...
 }: {
   programs.home-manager.enable = true;
@@ -50,7 +51,7 @@
 
     # Nix tools
     alejandra
-    nixd
+    nil
 
     # Kubernetes tooling
     kubectx

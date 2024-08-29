@@ -3,7 +3,6 @@
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     vim-quantum = {
       flake = false;
       url = "github:tyrannicaltoucan/vim-quantum";
@@ -24,9 +23,8 @@
       url = "../vim/.vimrc";
       flake = false;
     };
-    atuinPkg = {
-      url = "github:atuinsh/atuin";
-    };
+    atuinPkg.url = "github:atuinsh/atuin";
+    nilPkg.url =  "github:oxalica/nil";
   };
 
   outputs = {
@@ -38,8 +36,8 @@
     tmuxConf,
     zshConf,
     nvimConfig,
-    nix-doom-emacs,
     atuinPkg,
+    nilPkg,
     ...
   }:
     flake-utils.lib.eachDefaultSystem (system: let
@@ -58,15 +56,15 @@
       tmuxConfig = (import tmuxConf {inherit pkgs;}).config;
       zshConfig = (import zshConf {inherit pkgs;}).zshConfig;
       atuin = atuinPkg.packages.${system}.atuin;
+      nil = nilPkg.packages.${system}.nil;
     in rec {
       packages = {
         homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
-            inherit nvimConfig tmuxConfig customPlugins zshConfig atuin;
+            inherit nvimConfig tmuxConfig customPlugins zshConfig atuin nil;
           };
           modules = [
-            # nix-doom-emacs.hmModule
             ./home.nix
             {
               home = {
