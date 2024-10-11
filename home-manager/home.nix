@@ -129,6 +129,9 @@
       # Themes
       vim-quantum
       vim-oceanic-next
+
+      plenary-nvim
+      telescope-nvim
     ];
   };
 }

@@ -220,11 +220,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-vRjMRMM4uNraYM8/OjJuHjOxEWbGxMdJ5hFzcGQTA2U=",
-        "path": "/nix/store/hskr3ni2afbgn9wj6bzawyhml5kank2x-source/vim/.vimrc",
+        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/vim/.vimrc",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/hskr3ni2afbgn9wj6bzawyhml5kank2x-source/vim/.vimrc",
+        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/vim/.vimrc",
         "type": "path"
       }
     },
@@ -330,11 +330,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-/ksjaaFB8Fo7q/gpK0Jv7krqqYYcl4VqVcOziEOzxcc=",
-        "path": "/nix/store/hskr3ni2afbgn9wj6bzawyhml5kank2x-source/tmux/tmux.nix",
+        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/tmux/tmux.nix",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/hskr3ni2afbgn9wj6bzawyhml5kank2x-source/tmux/tmux.nix",
+        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/tmux/tmux.nix",
         "type": "path"
       }
     },
@@ -375,11 +375,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-lDuz83NHbBh0tC4Ne/KAXXGco4MNE6QZt+EXF1rOEhQ=",
-        "path": "/nix/store/hskr3ni2afbgn9wj6bzawyhml5kank2x-source/zsh/zshrc.nix",
+        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/zsh/zshrc.nix",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/hskr3ni2afbgn9wj6bzawyhml5kank2x-source/zsh/zshrc.nix",
+        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/zsh/zshrc.nix",
         "type": "path"
       }
     }
