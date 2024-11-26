@@ -151,6 +151,26 @@
         "type": "github"
       }
     },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1732519917,
+        "narHash": "sha256-AGXhwHdJV0q/WNgqwrR2zriubLr785b02FphaBtyt1Q=",
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "rev": "f4a5ca5771ba9ca31ad24a62c8d511a405303436",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1723541349,
@@ -220,11 +240,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-vRjMRMM4uNraYM8/OjJuHjOxEWbGxMdJ5hFzcGQTA2U=",
-        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/vim/.vimrc",
+        "path": "/nix/store/9vghr4lkhmhd37xd4h9i3mswvv8dylf2-source/vim/.vimrc",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/vim/.vimrc",
+        "path": "/nix/store/9vghr4lkhmhd37xd4h9i3mswvv8dylf2-source/vim/.vimrc",
         "type": "path"
       }
     },
@@ -234,6 +254,7 @@
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
         "nilPkg": "nilPkg",
+        "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_4",
         "nvimConfig": "nvimConfig",
         "tmuxConf": "tmuxConf",
@@ -330,11 +351,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-/ksjaaFB8Fo7q/gpK0Jv7krqqYYcl4VqVcOziEOzxcc=",
-        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/tmux/tmux.nix",
+        "path": "/nix/store/9vghr4lkhmhd37xd4h9i3mswvv8dylf2-source/tmux/tmux.nix",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/tmux/tmux.nix",
+        "path": "/nix/store/9vghr4lkhmhd37xd4h9i3mswvv8dylf2-source/tmux/tmux.nix",
         "type": "path"
       }
     },
@@ -375,11 +396,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-lDuz83NHbBh0tC4Ne/KAXXGco4MNE6QZt+EXF1rOEhQ=",
-        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/zsh/zshrc.nix",
+        "path": "/nix/store/9vghr4lkhmhd37xd4h9i3mswvv8dylf2-source/zsh/zshrc.nix",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/k0h3s10nzcaj56x9yl7c9h79lypi57j8-source/zsh/zshrc.nix",
+        "path": "/nix/store/9vghr4lkhmhd37xd4h9i3mswvv8dylf2-source/zsh/zshrc.nix",
         "type": "path"
       }
     }

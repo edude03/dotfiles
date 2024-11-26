@@ -2,6 +2,10 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     vim-quantum = {
       flake = false;
@@ -24,13 +28,14 @@
       flake = false;
     };
     atuinPkg.url = "github:atuinsh/atuin";
-    nilPkg.url =  "github:oxalica/nil";
+    nilPkg.url = "github:oxalica/nil";
   };
 
   outputs = {
     flake-utils,
     home-manager,
     nixpkgs,
+    nix-index-database,
     vim-quantum,
     vim-oceanic-next,
     tmuxConf,
@@ -65,6 +70,8 @@
             inherit nvimConfig tmuxConfig customPlugins zshConfig atuin nil;
           };
           modules = [
+            nix-index-database.hmModules.nix-index
+            {programs.nix-index-database.comma.enable = true;}
             ./home.nix
             {
               home = {

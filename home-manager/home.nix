@@ -13,6 +13,9 @@
     enable = true;
     enableZshIntegration = true;
     package = atuin;
+    settings = {
+      enter_accept = false;
+    };
   };
   # programs.doom-emacs = {
   #             enable = true;
