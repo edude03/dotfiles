@@ -87,7 +87,7 @@
     };
   };
 
-  # home.file.".tmux.conf" = { text = tmuxConfig; };
+  home.file.".tmux.conf" = { text = tmuxConfig; };
 
   home.file.".hushlogin" = {text = "";};
 
