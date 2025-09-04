@@ -1,12 +1,12 @@
 {
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     vim-quantum = {
       flake = false;
       url = "github:tyrannicaltoucan/vim-quantum";
@@ -60,9 +60,9 @@
       };
       tmuxConfig = (import tmuxConf {inherit pkgs;}).config;
       zshConfig = (import zshConf {inherit pkgs;}).zshConfig;
-      atuin = atuinPkg.packages.${system}.atuin;
+      atuin = atuinPkg.packages.${system}.atuin.overrideAttrs(f: p: {version = "18.7.3"; });
       nil = nilPkg.packages.${system}.nil;
-    in rec {
+    in {
       packages = {
         homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
@@ -76,7 +76,7 @@
             {
               home = {
                 inherit username;
-                homeDirectory = "/Users/edude03";
+                homeDirectory = if pkgs.stdenv.isDarwin then "/Users/edude03" else "/home/edude03";
                 stateVersion = "22.05";
               };
             }

@@ -129,6 +129,11 @@ in {
     # Autojump
     [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
+    # Sets up tmux auto resume on ssh. Super useful since I run long running commands in tmux but forget to start tmux sometimes
+    if command -v tmux &> /dev/null && [ -n "$SSH_TTY" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+      tmux attach-session -t default || tmux new-session -s default
+    fi
+
 
     eval "$(${pkgs.starship}/bin/starship init zsh)"
 

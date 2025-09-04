@@ -13,15 +13,12 @@
     enable = true;
     enableZshIntegration = true;
     package = atuin;
+    daemon.enable = true;
     settings = {
       enter_accept = false;
     };
+
   };
-  # programs.doom-emacs = {
-  #             enable = true;
-  #             doomPrivateDir = ./doom.d; # Directory containing your config.el, init.el
-  #                                        # and packages.el files
-  #           };
 
   home.packages = with pkgs; [
     gh
@@ -46,9 +43,8 @@
 
     # Random tools
     google-cloud-sdk
-    python310Packages.powerline
+    python312Packages.powerline
     bat
-    nerdfonts
     helix
     jq
 
@@ -109,6 +105,8 @@
     enable = true;
     initExtra = zshConfig;
   };
+
+  # fonts.package = [ ];
 
   programs.neovim = {
     enable = true;
