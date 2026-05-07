@@ -43,12 +43,23 @@
       uid = 1000;
       gid = 1000;
 
-      homeConfig = home-manager-config.packages.${imageSystem}.homeConfigurations.${username};
+      baseHomeConfig = home-manager-config.packages.${imageSystem}.homeConfigurations.${username};
+      # No systemd in the container, so the atuin user service has nothing to
+      # start it; disabling daemon mode keeps atuin working in non-daemon mode.
+      homeConfig = baseHomeConfig.extendModules {
+        modules = [
+          ({lib, ...}: {
+            # home.nix sets this to true on Linux; override unconditionally for
+            # the container since there's no systemd to start the daemon.
+            programs.atuin.daemon.enable = lib.mkForce false;
+          })
+        ];
+      };
       hmActivation = homeConfig.activationPackage;
 
       passwd = pkgsLinux.writeText "passwd" ''
         root:x:0:0:root:/root:${pkgsLinux.bashInteractive}/bin/bash
-        ${username}:x:${toString uid}:${toString gid}:${username}:/home/${username}:${pkgsLinux.bashInteractive}/bin/bash
+        ${username}:x:${toString uid}:${toString gid}:${username}:/home/${username}:${pkgsLinux.zsh}/bin/zsh
         nobody:x:65534:65534:Nobody:/:/bin/false
       '';
 
@@ -181,14 +192,17 @@
         ];
 
         config = {
-          User = "root";
+          # Run as edude03 so $HOME is owned by the running user and home-manager
+          # config actually loads. Use `docker exec -u 0` for privileged debugging
+          # (tcpdump on host pids, etc.).
+          User = "${toString uid}:${toString gid}";
           WorkingDir = "/home/${username}";
-          Cmd = ["${pkgsLinux.bashInteractive}/bin/bash" "-l"];
+          Cmd = ["${pkgsLinux.zsh}/bin/zsh" "-l"];
           Env = [
             "USER=${username}"
             "HOME=/home/${username}"
             "PATH=/home/${username}/.nix-profile/bin:/bin:/sbin"
-            "SHELL=${pkgsLinux.bashInteractive}/bin/bash"
+            "SHELL=${pkgsLinux.zsh}/bin/zsh"
             "TERM=xterm-256color"
             "SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
             "NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
