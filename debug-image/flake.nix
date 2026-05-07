@@ -5,10 +5,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     flake-utils.url = "github:numtide/flake-utils";
 
-    nix2container = {
-      url = "github:nlewo/nix2container";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nix2container ships a patched skopeo; keep its own pinned nixpkgs so the
+    # patch matches the skopeo version it was tested against. Skopeo is only
+    # used at push time, never in the runtime image.
+    nix2container.url = "github:nlewo/nix2container";
 
     home-manager-config = {
       url = "path:../home-manager";
