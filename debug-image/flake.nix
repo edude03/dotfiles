@@ -143,6 +143,9 @@
 
           # Materialize home-manager's generated home tree.
           cp -a ${hmActivation}/home-files/. $out/home/${username}/
+          # cp -a inherits read-only modes from the /nix/store source, so make
+          # the home root (and any subdirs) writable enough to add files.
+          find $out/home/${username} -type d -exec chmod u+w {} +
 
           # Convenience symlink so $HOME/.nix-profile/bin works.
           ln -s ${homeConfig.config.home.path} $out/home/${username}/.nix-profile
