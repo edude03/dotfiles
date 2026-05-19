@@ -103,6 +103,8 @@ in {
      compinit -C;
     fi;
 
+    source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+
     # Ensure nvim is used as editor
     export EDITOR=nvim
 

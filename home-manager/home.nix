@@ -13,11 +13,10 @@
     enable = true;
     enableZshIntegration = true;
     package = atuin;
-    daemon.enable = true;
+    daemon.enable = pkgs.stdenv.isLinux;
     settings = {
       enter_accept = false;
     };
-
   };
 
   home.packages = with pkgs; [
@@ -51,6 +50,7 @@
     # Nix tools
     alejandra
     nil
+    nixd
 
     # Kubernetes tooling
     kubectx
@@ -62,6 +62,11 @@
   ];
 
   programs.fzf = {enable = true;};
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   programs.git = {
     enable = true;
@@ -83,7 +88,7 @@
     };
   };
 
-  home.file.".tmux.conf" = { text = tmuxConfig; };
+  home.file.".tmux.conf" = {text = tmuxConfig;};
 
   home.file.".hushlogin" = {text = "";};
 

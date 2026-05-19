@@ -1,0 +1,73 @@
+name: debug-image
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "debug-image/**"
+      - "home-manager/**"
+      - "zsh/**"
+      - "tmux/**"
+      - "vim/**"
+      - ".github/workflows/debug-image.yml"
+  pull_request:
+    paths:
+      - "debug-image/**"
+      - "home-manager/**"
+      - "zsh/**"
+      - "tmux/**"
+      - "vim/**"
+      - ".github/workflows/debug-image.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+
+      - name: Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Resolve image name (ghcr requires lowercase)
+        id: image
+        env:
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          owner_lc="${OWNER,,}"
+          echo "ref=ghcr.io/${owner_lc}/debug-image" >> "$GITHUB_OUTPUT"
+
+      - name: Build image
+        working-directory: debug-image
+        run: nix build .#debug-image --print-build-logs
+
+      - name: Log in to ghcr
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push sha-tagged image to ghcr
+        working-directory: debug-image
+        run: |
+          nix run .#debug-image.copyTo -- \
+            "docker://${{ steps.image.outputs.ref }}:${{ github.sha }}"
+
+      - name: Push :latest tag (master only)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        working-directory: debug-image
+        run: |
+          nix run .#debug-image.copyTo -- \
+            "docker://${{ steps.image.outputs.ref }}:latest"
